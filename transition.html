@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Transition Example</title>
+  <style>
+  .cardWrap {
+    margin-top: 150px;
+    margin-left: 150px;
+    width: 122px;
+    height: 132px;
+    border: 1px solid black;
+    overflow: hidden;
+    position: relative;
+  }
+  .cardWrap .card {
+    width: 122px;
+    height: 132px;
+    transition: transform 0.5s ease-in-out;
+    position: absolute;
+    z-index: 1;
+  }
+  .cardWrap .card.top.activated { transform: translateY(0); }
+  .cardWrap .card.top:not(.activated) { transform: translateY(-100%); }
+  .cardWrap .card.top { top: 0; background-color: red; }
+
+  .cardWrap .card.middle.activated { transform: translateY(0%); }
+  .cardWrap .card.middle:not(.activated) { transform: translateY(100%); }
+  .cardWrap .card.middle { top: 0; background-color: green; }
+  </style>
+</head>
+<body>
+  <div class="cardWrap">
+    <div class="card top">TOP</div>
+    <div class="card middle activated">BODY</div>
+
+    <!-- <div class="label top-left">top-left</div>
+    <div class="label top-center">top-center</div>
+    <div class="label top-right">top-right</div>
+
+    <div class="label middle-left">middle-left</div>
+    <div class="label middle-center">middle-center</div>
+    <div class="label middle-right">middle-right</div>
+
+    <div class="label bottom-left">bottom-left</div>
+    <div class="label bottom-center">bottom-center</div>
+    <div class="label bottom-right">bottom-right</div> -->
+  </div>
+  <script>
+  document.querySelector('.card.top').onclick = (event) => {
+    const { target: el } = event
+    if (el.classList.contains('activated')) {
+      el.classList.remove('activated')
+      el.nextElementSibling.classList.add('activated')
+    }
+  }
+  
+  document.querySelector('.card.middle').onclick = (event) => {
+    const { target: el } = event
+    if (el.classList.contains('activated')) {
+      el.classList.remove('activated')
+      el.previousElementSibling.classList.add('activated')
+    }
+  }
+  </script>
+</body>
+</html>
